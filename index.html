@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Una domanda per Mariku...</title>
     <style>
-        /* Stile generale della pagina per centrare tutto e renderla carina */
+        /* Stile generale della pagina */
         body {
             display: flex;
             justify-content: center;
@@ -13,28 +13,43 @@
             min-height: 100vh;
             margin: 0;
             background-color: #ffeaf0; /* Sfondo rosa chiaro */
-            font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Un font giocoso */
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
             text-align: center;
-            overflow: hidden; /* Evita barre di scorrimento se i bottoni diventano enormi */
+            overflow: hidden;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 90%; /* Per evitare che esca troppo su schermi piccoli */
         }
 
-        /* Stile dell'immagine del pinguino */
+        /* Stile dell'immagine iniziale del pinguino */
         .penguin-img {
             width: 200px;
             height: auto;
             margin-bottom: 20px;
         }
+        
+        /* Stile per la GIF finale */
+        .final-gif {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+        }
 
         h1 {
             color: #d6336c;
             margin-bottom: 30px;
+        }
+        
+        /* Stile specifico per la scritta "accusatoria" */
+        .accusation-text {
+            color: #dc3545; /* Rosso forte */
+            font-size: 2.5em;
+            font-weight: bold;
         }
 
         /* Stile base dei bottoni */
@@ -45,7 +60,7 @@
             border-radius: 50px;
             cursor: pointer;
             font-size: 20px;
-            transition: all 0.3s ease; /* Animazione fluida per i click */
+            transition: all 0.1s ease;
         }
 
         #btnSi {
@@ -54,7 +69,7 @@
             box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
         }
         
-        #btnSi:hover { background-color: #218838; }
+        #btnSi:hover { background-color: #218838; transform: scale(1.05); }
 
         #btnNo {
             background-color: #dc3545; /* Rosso */
@@ -67,7 +82,7 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="mainContainer">
         <img src="https://cdn.pixabay.com/photo/2013/07/13/11/44/penguin-158551_1280.png" alt="Pinguino carino" class="penguin-img">
         
         <h1>Mariku vuoi essere la mia Valentina?</h1>
@@ -80,49 +95,14 @@
 
 
     <script>
-        // --- LA PARTE MAGICA (JAVASCRIPT) ---
-
-        let sizeSi = 20; // Dimensione iniziale del font Sì
-        let paddingSi = 15; // Imbottitura iniziale del bottone Sì
-        
-        let sizeNo = 20; // Dimensione iniziale del font No
-        let paddingNo = 15; // Imbottitura iniziale del bottone No
+        let sizeSi = 20; 
+        let paddingSi = 15; 
+        let sizeNo = 20; 
+        let paddingNo = 15; 
 
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
+        const mainContainer = document.getElementById('mainContainer');
 
-        // Questa funzione viene eseguita ogni mezzo secondo (500 millisecondi)
-        setInterval(function() {
-            // Fai crescere il SÌ
-            sizeSi += 1; 
-            paddingSi += 0.5;
-            btnSi.style.fontSize = sizeSi + "px";
-            btnSi.style.padding = paddingSi + "px " + (paddingSi*2) + "px";
-
-            // Fai rimpicciolire il NO (fino a un minimo, per non farlo sparire del tutto subito)
-            if (sizeNo > 8) {
-                sizeNo -= 0.5;
-                paddingNo -= 0.3;
-                btnNo.style.fontSize = sizeNo + "px";
-                // Assicura che il padding non diventi negativo
-                let currentPad = paddingNo > 2 ? paddingNo : 2;
-                btnNo.style.padding = currentPad + "px " + (currentPad*2) + "px";
-            }
-        }, 500); // <-- Cambia 500 per renderlo più veloce (es. 200) o più lento (es. 1000)
-
-        // Cosa succede se clicca SÌ
-        btnSi.addEventListener('click', function() {
-            alert("YEEEEAH! ❤️ Prepara i bagagli (metaforici... per ora)!");
-            // Opzionale: puoi reindirizzare a un'altra pagina, o cambiare l'immagine
-            document.querySelector('h1').innerText = "❤️ HA DETTO SÌ! ❤️";
-            btnNo.style.display = 'none'; // Nasconde il bottone No
-        });
-
-        // Cosa succede se clicca NO (se ci riesce!)
-        btnNo.addEventListener('click', function() {
-            alert("Ahi... ritenta, sarai più fortunato! (Il bottone Sì sta ancora crescendo...)");
-        });
-
-    </script>
-</body>
-</html>
+        // Assegniamo il timer a una variabile per poterlo fermare dopo
+        let growthTimer = setInterval(function() {
