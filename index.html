@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una domanda per Mariku...</title>
+    <style>
+        /* Stile generale della pagina per centrare tutto e renderla carina */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #ffeaf0; /* Sfondo rosa chiaro */
+            font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Un font giocoso */
+            text-align: center;
+            overflow: hidden; /* Evita barre di scorrimento se i bottoni diventano enormi */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Stile dell'immagine del pinguino */
+        .penguin-img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #d6336c;
+            margin-bottom: 30px;
+        }
+
+        /* Stile base dei bottoni */
+        .btn {
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease; /* Animazione fluida per i click */
+        }
+
+        #btnSi {
+            background-color: #28a745; /* Verde */
+            color: white;
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+        
+        #btnSi:hover { background-color: #218838; }
+
+        #btnNo {
+            background-color: #dc3545; /* Rosso */
+            color: white;
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+        }
+        #btnNo:hover { background-color: #c82333; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://cdn.pixabay.com/photo/2013/07/13/11/44/penguin-158551_1280.png" alt="Pinguino carino" class="penguin-img">
+        
+        <h1>Mariku vuoi essere la mia Valentina?</h1>
+        
+        <div>
+            <button id="btnSi" class="btn">Sì!</button>
+            <button id="btnNo" class="btn">No</button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- LA PARTE MAGICA (JAVASCRIPT) ---
+
+        let sizeSi = 20; // Dimensione iniziale del font Sì
+        let paddingSi = 15; // Imbottitura iniziale del bottone Sì
+        
+        let sizeNo = 20; // Dimensione iniziale del font No
+        let paddingNo = 15; // Imbottitura iniziale del bottone No
+
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+
+        // Questa funzione viene eseguita ogni mezzo secondo (500 millisecondi)
+        setInterval(function() {
+            // Fai crescere il SÌ
+            sizeSi += 1; 
+            paddingSi += 0.5;
+            btnSi.style.fontSize = sizeSi + "px";
+            btnSi.style.padding = paddingSi + "px " + (paddingSi*2) + "px";
+
+            // Fai rimpicciolire il NO (fino a un minimo, per non farlo sparire del tutto subito)
+            if (sizeNo > 8) {
+                sizeNo -= 0.5;
+                paddingNo -= 0.3;
+                btnNo.style.fontSize = sizeNo + "px";
+                // Assicura che il padding non diventi negativo
+                let currentPad = paddingNo > 2 ? paddingNo : 2;
+                btnNo.style.padding = currentPad + "px " + (currentPad*2) + "px";
+            }
+        }, 500); // <-- Cambia 500 per renderlo più veloce (es. 200) o più lento (es. 1000)
+
+        // Cosa succede se clicca SÌ
+        btnSi.addEventListener('click', function() {
+            alert("YEEEEAH! ❤️ Prepara i bagagli (metaforici... per ora)!");
+            // Opzionale: puoi reindirizzare a un'altra pagina, o cambiare l'immagine
+            document.querySelector('h1').innerText = "❤️ HA DETTO SÌ! ❤️";
+            btnNo.style.display = 'none'; // Nasconde il bottone No
+        });
+
+        // Cosa succede se clicca NO (se ci riesce!)
+        btnNo.addEventListener('click', function() {
+            alert("Ahi... ritenta, sarai più fortunato! (Il bottone Sì sta ancora crescendo...)");
+        });
+
+    </script>
+</body>
+</html>
