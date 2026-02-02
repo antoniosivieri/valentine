@@ -125,16 +125,15 @@
             }
         }, 400); // Aggiorna ogni 400ms
 
-        // --- MODIFICA 1: Cosa succede se clicca SÌ (Ciuchino GIF) ---
+        // --- MODIFICA 1: Cosa succede se clicca SÌ (TUA GIF DI CIUCHINO) ---
         btnSi.addEventListener('click', function() {
             // Ferma l'ingrandimento dei bottoni
             clearInterval(growthTimer);
             
-            // Sostituisce tutto il contenuto del container bianco con la GIF
-            // Uso una GIF di Tenor di Ciuchino felice
+            // Sostituisce tutto il contenuto del container bianco con la GIF fornita
             mainContainer.innerHTML = `
                 <h1>SIIIIIIIII! 🎉❤️ PREPARATI!</h1>
-                <img src="https://media1.tenor.com/m/J0_L0b-gHjMAAAAC/shrek-donkey.gif" alt="Ciuchino Felice" class="final-gif">
+                <img src="image_0.png" alt="Ciuchino Felice che Sorride" class="final-gif">
             `;
         });
 
