@@ -106,3 +106,49 @@
 
         // Assegniamo il timer a una variabile per poterlo fermare dopo
         let growthTimer = setInterval(function() {
+            // Fai crescere il SÌ
+            sizeSi += 1.5; // Cresce un po' più veloce ora
+            paddingSi += 0.8;
+            btnSi.style.fontSize = sizeSi + "px";
+            btnSi.style.padding = paddingSi + "px " + (paddingSi*2.5) + "px";
+
+            // Fai rimpicciolire il NO
+            if (sizeNo > 5) {
+                sizeNo -= 0.5;
+                paddingNo -= 0.3;
+                btnNo.style.fontSize = sizeNo + "px";
+                let currentPad = paddingNo > 1 ? paddingNo : 1;
+                btnNo.style.padding = currentPad + "px " + (currentPad*1.5) + "px";
+            } else {
+                // Opzionale: se diventa troppo piccolo, rendilo quasi invisibile
+                btnNo.style.opacity = "0.5";
+            }
+        }, 400); // Aggiorna ogni 400ms
+
+        // --- MODIFICA 1: Cosa succede se clicca SÌ (Ciuchino GIF) ---
+        btnSi.addEventListener('click', function() {
+            // Ferma l'ingrandimento dei bottoni
+            clearInterval(growthTimer);
+            
+            // Sostituisce tutto il contenuto del container bianco con la GIF
+            // Uso una GIF di Tenor di Ciuchino felice
+            mainContainer.innerHTML = `
+                <h1>SIIIIIIIII! 🎉❤️ PREPARATI!</h1>
+                <img src="https://media1.tenor.com/m/J0_L0b-gHjMAAAAC/shrek-donkey.gif" alt="Ciuchino Felice" class="final-gif">
+            `;
+        });
+
+        // --- MODIFICA 2: Cosa succede se clicca NO (L'accusa) ---
+        btnNo.addEventListener('click', function() {
+            // Ferma l'ingrandimento dei bottoni
+            clearInterval(growthTimer);
+
+            // Sostituisce tutto il contenuto con la scritta accusatoria
+            mainContainer.innerHTML = `
+                <h1 class="accusation-text">STAI ANCORA ACCUSANDO DA IERI? 👀</h1>
+            `;
+        });
+
+    </script>
+</body>
+</html>
